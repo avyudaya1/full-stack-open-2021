@@ -1,0 +1,14 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "content": "Rest client is cool",
+    "important": true
+}
+
+###
+GET http://localhost:3001/api/notes
+
+###
+
+GET  http://localhost:3001/api/notes/609ca1024a74ad0114cee738
