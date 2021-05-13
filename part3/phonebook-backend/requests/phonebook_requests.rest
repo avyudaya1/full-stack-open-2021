@@ -4,7 +4,11 @@ GET http://localhost:3001/api/persons
 
 POST http://localhost:3001/api/persons
 Content-Type: application/json
+
 {
     "name": "restUser",
     "number": "12323423"
 }
+
+###
+GET http://localhost:3001/api/persons/609cb51a1ab37d0553a1bf27
