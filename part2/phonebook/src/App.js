@@ -34,15 +34,18 @@ const App = () => {
         }
     }
 
-    const handleNotificationMessage = (name, status) => {
+    const handleNotificationMessage = (message, status) => {
         if(status === 'added'){
-            setNotificationMessage({message: `${name} added`, status: 'success'})
+            setNotificationMessage({message: `${message} added`, status: 'success'})
         }
         else if(status==='modified'){
-            setNotificationMessage({message: `${name} modified`, status: 'success'})
+            setNotificationMessage({message: `${message} modified`, status: 'success'})
+        }
+        else if(status === 'validation error'){
+            setNotificationMessage({message: message, status: 'error'})
         }
         else {
-            setNotificationMessage({message: `Information of ${name} has already been removed from server.`, status:'error'})
+            setNotificationMessage({message: `Information of ${message} has already been removed from server.`, status:'error'})
         }
 
         setTimeout(()=>{
@@ -84,7 +87,6 @@ const App = () => {
                         setNewNumber('')
                     })
                     .catch(error => {
-                        console.log(error)
                         handleNotificationMessage(person.name, 'not found')
                     })
             }
@@ -107,6 +109,9 @@ const App = () => {
                         setNewNumber('')  
                     }
                 )
+                .catch(error => {
+                    handleNotificationMessage(error.response.data.error, 'validation error')
+                })
         }
                
     }
@@ -122,7 +127,6 @@ const App = () => {
                 }
             })
             .catch(error=> {
-                console.log(error)
                 alert(`the person of ${id} was already deleted from server.`)
                 setPersons(persons.filter(person => person.id !== id))
             }) 
