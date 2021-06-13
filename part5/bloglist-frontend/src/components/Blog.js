@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import blogService from '../services/blogs'
 
-const Blog = ({ blog, blogs, setBlogs }) => {
+const Blog = ({ blog, updateLikeCount, removeBlog }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -14,26 +13,6 @@ const Blog = ({ blog, blogs, setBlogs }) => {
   const showDetails = () => setFlag(true)
   const hideDetails = () => setFlag(false)
 
-  const updateLikeCount = (event, id) => {
-    const foundBlog = blogs.find(b => b.id === id)
-    if (foundBlog.likes === undefined)
-      foundBlog.likes = 0
-    const updatedBlog = { ...foundBlog, likes: foundBlog.likes + 1 }
-
-    blogService.update(id, updatedBlog).then(returnedBlog => {
-      setBlogs(blogs.map(b => b.id !== id ? b : returnedBlog).sort((a, b) => b.likes - a.likes))
-    })
-
-  }
-
-  const removeBlog = (event, id, name, author) => {
-    if (window.confirm(`Remove blog ${name} by ${author}?`)) {
-      blogService.deleteBlog(id).then(() => {
-        setBlogs(blogs.filter(p => p.id !== id).sort((a, b) => b.likes - a.likes))
-      })
-    }
-  }
-
   if (!flag) {
     return (
       <div style={blogStyle} className="blog-default">
@@ -45,10 +24,10 @@ const Blog = ({ blog, blogs, setBlogs }) => {
   } else {
     return (
       <div style={blogStyle}>
-        <div>{blog.title} &nbsp; <button onClick={hideDetails}>hide</button></div>
-        <div>{blog.url}</div>
-        <div>{blog.likes}&nbsp; <button onClick={(event) => updateLikeCount(event, blog.id)}>like</button></div>
-        <div>{blog.author}</div>
+        <div><span className="blog-title">Title: {blog.title}</span> &nbsp; <button onClick={hideDetails}>hide</button></div>
+        <div className="blog-url">URL: {blog.url}</div>
+        <div><span className="blog-likes">Likes: {blog.likes}</span>&nbsp; <button onClick={(event) => updateLikeCount(event, blog.id)}>like</button></div>
+        <div className="blog-author">Author: {blog.author}</div>
         <button onClick={(event) => removeBlog(event, blog.id, blog.title, blog.author)}>remove</button>
       </div>
     )
