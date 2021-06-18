@@ -1,8 +1,8 @@
-import noteReducer from './noteReducer'
+import noteReducer from "./noteReducer"
 import deepFreeze from 'deep-freeze'
 
 describe('noteReducer', () => {
-  test('returns new state with action NEW_NOTE', () => {
+  test('returns a new state with action NEW_NOTE', () => {
     const state = []
     const action = {
       type: 'NEW_NOTE',
@@ -12,8 +12,7 @@ describe('noteReducer', () => {
         id: 1
       }
     }
-
-    deepFreeze(state)
+    deepFreeze(state) // prove that reducer does not change state of the store given to it as parameter.
     const newState = noteReducer(state, action)
 
     expect(newState).toHaveLength(1)
@@ -31,26 +30,26 @@ describe('noteReducer', () => {
         content: 'state changes are made with actions',
         important: false,
         id: 2
-      }]
-  
+      }
+    ]
     const action = {
       type: 'TOGGLE_IMPORTANCE',
       data: {
         id: 2
       }
     }
-  
+    
     deepFreeze(state)
     const newState = noteReducer(state, action)
-  
+
     expect(newState).toHaveLength(2)
-  
+
     expect(newState).toContainEqual(state[0])
-  
+
     expect(newState).toContainEqual({
       content: 'state changes are made with actions',
       important: true,
       id: 2
     })
-  })  
+  })
 })

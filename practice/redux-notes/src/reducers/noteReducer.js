@@ -1,40 +1,21 @@
 const noteReducer = (state = [], action) => {
+  console.log(state)
   switch(action.type) {
     case 'NEW_NOTE':
+      // return state.concat(action.data)
+      // ! never use .push as it changes the previous state obj and the obj becomes mutable
       return [...state, action.data]
     case 'TOGGLE_IMPORTANCE':
       const id = action.data.id
-      const noteToChange = state.find(n => n.id === id)
-      const changedNote = { 
-        ...noteToChange, 
-        important: !noteToChange.important 
+      const noteToChange = state.find(s => s.id === id)
+      console.log(noteToChange)
+      const changedNote = {
+        ...noteToChange,
+        important: !noteToChange.important
       }
-      return state.map(note =>
-        note.id !== id ? note : changedNote 
-      )
+      return state.map(note => note.id !== id ? note: changedNote)
     default:
       return state
-  }
-}
-
-const generateId = () =>
-  Number((Math.random() * 1000000).toFixed(0))
-
-export const createNote = (content) => {
-  return {
-    type: 'NEW_NOTE',
-    data: {
-      content,
-      important: false,
-      id: generateId()
-    }
-  }
-}
-
-export const toggleImportanceOf = (id) => {
-  return {
-    type: 'TOGGLE_IMPORTANCE',
-    data: { id }
   }
 }
 

@@ -24,7 +24,7 @@ const App = () => {
     })
   }
 
-  const reset = () => {
+  const zero = () => {
     store.dispatch({
       type: 'ZERO'
     })
@@ -35,7 +35,7 @@ const App = () => {
       <button onClick={good}>good</button> 
       <button onClick={neutral}>neutral</button> 
       <button onClick={bad}>bad</button>
-      <button onClick={reset}>reset stats</button>
+      <button onClick={zero}>reset stats</button>
       <div>good {store.getState().good}</div>
       <div>neutral {store.getState().ok}</div>
       <div>bad {store.getState().bad}</div>
