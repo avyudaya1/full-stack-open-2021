@@ -1,5 +1,4 @@
 const noteReducer = (state = [], action) => {
-  console.log(state)
   switch(action.type) {
     case 'NEW_NOTE':
       // return state.concat(action.data)
@@ -8,7 +7,6 @@ const noteReducer = (state = [], action) => {
     case 'TOGGLE_IMPORTANCE':
       const id = action.data.id
       const noteToChange = state.find(s => s.id === id)
-      console.log(noteToChange)
       const changedNote = {
         ...noteToChange,
         important: !noteToChange.important
@@ -16,6 +14,28 @@ const noteReducer = (state = [], action) => {
       return state.map(note => note.id !== id ? note: changedNote)
     default:
       return state
+  }
+}
+
+// action creators below
+
+const generateId = () => Math.floor(Math.random() * 1000000)
+
+export const createNote = (content) => {
+  return {
+    type: 'NEW_NOTE',
+    data: {
+      content,
+      important: false,
+      id: generateId()
+    }
+  }
+}
+
+export const toggleImportanceOf = (id) => {
+  return {
+    type: 'TOGGLE_IMPORTANCE',
+    data: { id }
   }
 }
 
