@@ -1,22 +1,11 @@
-const initialState = [
-    {
-      content: 'reducer defines how redux store works',
-      important: true,
-      id: 1,
-    },
-    {
-      content: 'state of store can contain any data',
-      important: false,
-      id: 2,
-    },
-  ]
-
-const noteReducer = (state = initialState, action) => {
+const noteReducer = (state = [], action) => {
   switch(action.type) {
     case 'NEW_NOTE':
       // return state.concat(action.data)
       // ! never use .push as it changes the previous state obj and the obj becomes mutable
       return [...state, action.data]
+    case 'INIT_NOTE':
+      return action.data
     case 'TOGGLE_IMPORTANCE':
       const id = action.data.id
       const noteToChange = state.find(s => s.id === id)
@@ -32,16 +21,17 @@ const noteReducer = (state = initialState, action) => {
 
 // action creators below
 
-const generateId = () => Math.floor(Math.random() * 1000000)
+export const initializeNotes = (notes) => {
+  return {
+    type: 'INIT_NOTE',
+    data: notes
+  }
+}
 
-export const createNote = (content) => {
+export const createNote = (data) => {
   return {
     type: 'NEW_NOTE',
-    data: {
-      content,
-      important: false,
-      id: generateId()
-    }
+    data
   }
 }
 

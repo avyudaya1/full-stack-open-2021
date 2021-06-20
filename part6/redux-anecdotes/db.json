@@ -1,0 +1,14 @@
+{
+  "anecdotes": [
+    {
+      "content": "If it hurts, do it more often",
+      "id": 1,
+      "votes": 10
+    },
+    {
+      "content": "Hello buhahaha",
+      "id": 2,
+      "votes": 3
+    }
+  ]
+}

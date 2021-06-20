@@ -9,7 +9,8 @@ const AnecdoteList = () => {
     const anecdotes = state.anecdotes
     if (filter === '') return anecdotes
 
-    return anecdotes.filter((anecdote) => anecdote.content.indexOf(filter) > 0)
+    // return anecdotes.filter((anecdote) => anecdote.content.indexOf(filter) > 0)
+    return anecdotes.filter((anecdote) => anecdote.content.toLowerCase().includes(filter) === true)
   })
   const dispatch = useDispatch()
 
