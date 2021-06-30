@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useMutation } from '@apollo/client'
+
 import { EDIT_NUMBER } from '../queries'
 
-const PhoneForm = ({ notify }) => {
+const PhoneForm = ({ setError }) => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
 
-  const [ changeNumber, result] = useMutation(EDIT_NUMBER)
+  const [ changeNumber, result ] = useMutation(EDIT_NUMBER)
 
   useEffect(() => {
-    if ( result.data && !result.data.editNumber) {
-      notify('name not found')
+    if (result.data && result.data.editNumber === null) {
+      setError('person not found')
     }
-  }, [result.data]) // eslint-disable-line
+  }, [result.data])  // eslint-disable-line 
 
   const submit = async (event) => {
     event.preventDefault()
