@@ -67,7 +67,7 @@ const App = () => {
 
       <Authors show={page === 'authors'} />
 
-      <Books show={page === 'books'} books={books} />
+      <Books show={page === 'books'} books={books}/>
 
       <NewBook show={page === 'add'} />
 

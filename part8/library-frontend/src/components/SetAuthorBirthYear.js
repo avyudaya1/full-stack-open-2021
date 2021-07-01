@@ -9,7 +9,7 @@ const SetAuthorBirthYear = ({ authorsNames }) => {
       const message =
         error.graphQLErrors.length > 0
           ? error.graphQLErrors[0].message
-          : 'Set birthyear to update the Author'
+          : 'birthyear not set'
       notify(message)
     },
     update: (store, response) => {
@@ -59,6 +59,7 @@ const SetAuthorBirthYear = ({ authorsNames }) => {
       <Notify errorMessage={errorMessage} />
       <form onSubmit={submit}>
         <div>
+          name
           <select value={name} onChange={({ target }) => setName(target.value)}>
             {authorsNames &&
               authorsNames.map((name, index) => (

@@ -5,14 +5,13 @@ import { useQuery } from '@apollo/client'
 import { ALL_BOOKS } from '../queries'
 
 const Books = (props) => {
-  const [books, setBooks] = useState([])
-  
+  let books = props.books
   const [booksByGenre, setBooksByGenre] = useState(books)
   const [genres, setGenres] = useState('')
   const [genre, setGenre] = useState(null)
   const result = useQuery(ALL_BOOKS, {
     onCompleted: (data) => {
-      setBooks(data.allBooks)
+      books = data.allBooks
       setBooksByGenre(booksByGenre)
     },
   })
